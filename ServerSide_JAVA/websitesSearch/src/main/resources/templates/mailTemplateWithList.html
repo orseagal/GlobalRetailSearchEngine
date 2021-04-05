@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<body>
+<span th:text="${message}"></span>
+<table>
+    <tr data-th-each="item : ${allItems}">
+      <td><a th:href="${item.viewItemURL}"><img th:src="${item.image}" width="300" height="200"></a></td>
+        <td data-th-text="${item.currency}">...</td>
+        <td data-th-text="${item.title}">...</td>
+        <td data-th-text="${item.price}">...</td>
+    </tr>
+</table>
+</body>
+</html>
