@@ -1,4 +1,4 @@
-package com.websiteSearch.rest;
+package com.websiteSearch.controller;
 
 import java.util.LinkedHashSet;
 import java.util.List;
