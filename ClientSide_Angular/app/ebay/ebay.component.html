@@ -1,0 +1,307 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+  <title>Custom Bootstrap 4 card</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500&amp;subset=latin-ext" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+<style>
+  html {
+    font-size: 14px;
+  }
+  
+  .container {
+    font-size: 14px;
+    color: #666666;
+    font-family: "Open Sans";
+    
+  position: absolute;
+
+  left: 20%;
+  margin: -25px 0 0 -25px; 
+
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="row pt-5 m-auto">
+      <div class="col-md-6 col-lg-4 pb-3">
+
+        <div class="card card-custom bg-white border-white border-0" style="width:90rem;height: 90rem;">
+          <div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+          <div class="card-custom-avatar">
+            <img class="img-fluid" src="/assets/img/ebay-logo-1-1200x630-margin.png" alt="Avatar" />
+          </div>
+          <div class="card-body" style="overflow-y: auto">
+        
+            <mat-grid-list cols="5" rowHeight="360px" style="margin:30px auto">
+              <mat-grid-tile  padding:.75rem
+                  *ngFor="let item of items" class="img">
+                  <div class="imagebox" >
+                    <a [routerLink]="item.id">
+                      <img [src]="item.image" class="img-fluid">
+                      <span class="imagebox-desc">{{ item.title }}</span>
+                    </a>
+                  </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+            
+           
+          </div>
+          <div class="card-footer" style="background: inherit; border-color: inherit;">
+  
+    
+          </div>
+        </div>
+      
+
+      </div>
+  
+    
+    </div>
+  </div>
+
+</body>
+
+</html> -->
+
+
+	 <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="http://getbootstrap.com/dist/css/bootstrap.css"></script>  -->
+<!-- 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+		<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>  -->
+		
+		
+	
+<style>
+.center_div{
+    margin: 0 auto;
+    width:80%;
+}
+</style> 
+
+
+<div class="d-flex justify-content-center" *ngIf="isLoading"  style="margin-top: 15%;padding-bottom: 15%;">
+ <mat-spinner></mat-spinner>
+ </div>  
+<div class = "container center_div" *ngIf="!isLoading && items==null">
+	<form class = "form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">	
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="keyword">Key words:*</label>
+				<div class="col-sm-8">
+					<input type = "text" class="form-control" id = "keyword" formControlName = "keyword" placeholder="Enter keyword">
+				</div>
+
+      </div>	
+      
+      
+      <div class="form-group row">
+				<label class="control-label col-sm-2" for="sort">Location: </label>
+				<div class="col-sm-8">
+          <select class="form-control" formControlName="location" >
+            <option [ngValue]="null" disabled>Select Location</option>
+            <option *ngFor="let location of locations" [ngValue]="location.value">
+              {{ location.name }}
+            </option>
+          </select>
+				</div>
+			</div>	
+
+      <div class="form-group row">
+				<label class="control-label col-sm-2" for="sort">Category: </label>
+				<div class="col-sm-8">
+          <select class="form-control" formControlName="category" >
+            <option [ngValue]="null" disabled>Select Category</option>
+            <option *ngFor="let category of categories" [ngValue]="category.value">
+              {{ category.name }}
+            </option>
+          </select>
+				</div>
+			</div>	
+
+
+			<div class = "form-group row">
+					<label class="control-label col-sm-2" for="priceLow">Price range:  </label>
+					<div class="col-sm-4">
+            <input type = "number" class="form-control" formControlName = "priceLow" id = "priceLow" min="0" placeholder="from($)">
+            <div style="color: crimson;" *ngIf="form.getError('priceValidator') && form.controls['priceHigh'].dirty">Lower price is greater then high price</div>
+          </div>
+          <!-- <mat-error *ngIf="!form.controls['priceLow'].valid">Title is required! 3 chars at least</mat-error> -->
+          
+					<label class="control-label " for="priceHigh">  </label>
+					<div class="col-sm-4">
+            <input type = "number" class="form-control" formControlName = "priceHigh" id = "priceHigh" min="0" placeholder="to($)"> 
+            
+          </div>
+
+         <!-- <div *ngIf="form.getError('priceValidator') && form.controls['priceHigh'].touched">Only one order must be selected</div> -->
+         
+      </div>
+       
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="conditionNew">Condition:  </label>
+				<div class="col-sm-8">
+          
+          <label class="checkbox-inline" formArrayName="condition" *ngFor="let condition of conditionFormArray.controls; let i = index" style="padding-right: 15px;">
+            <input type="checkbox" [formControlName]="i" >
+            {{conditionData[i]}}
+          </label>
+        
+          <div style="color: crimson;" *ngIf="!form.controls['condition'].valid">You must select only one condition</div>
+
+					<!-- <label class="checkbox-inline"><input type="checkbox" formArrayName = "condition" value=3000>Used</label>
+					<label class="checkbox-inline"><input type="checkbox" formArrayName = "condition" value=4000>Very Good</label>
+					<label class="checkbox-inline"><input type="checkbox" formArrayName = "condition" value=3000>Good</label>
+					<label class="checkbox-inline"><input type="checkbox" formArrayName = "condition" value=4000>Acceptable</label> -->
+				</div>
+			</div>
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="formats">Buying formats:  </label>
+				<div class="col-sm-8">
+
+          <label class="checkbox-inline" formArrayName="buyFormat" *ngFor="let buyFormat of buyFormatFormArray.controls; let i = index" style="padding-right: 15px;">
+            <input type="checkbox" [formControlName]="i">
+            {{buyFormatData[i]}}
+          </label>
+        
+          <div style="color: crimson;" *ngIf="!form.controls['buyFormat'].valid">You must select only one format</div>
+
+					<!-- <label class="checkbox-inline"><input type="checkbox" id = "formats" formControlName = "BuyFormat[]" value="FixedPrice">Buy It Now</label>
+					<label class="checkbox-inline"><input type="checkbox" formControlName = "BuyFormat[]" value="Auction">Auction</label>
+					<label class="checkbox-inline"><input type="checkbox" formControlName = "BuyFormat[]" value="Classified">Classified Ad</label> -->
+				</div>
+			</div>
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="returns">Returns:  </label>
+				<div class="col-sm-8">
+					<div class="checkbox">					
+						<label><input type="checkbox" id = "returns" formControlName = "returns" value="true"> Return accepted </label>				
+					</div>
+				</div>
+			</div>
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="shipping">Shipping:  </label>
+				<div class="col-sm-8">
+					<label class="checkbox-inline" style="padding-right: 15px;"><input type="checkbox" id = "shipping" formControlName = "FreeShippingOnly" value="true"> Free Shipping</label>
+					<label class="checkbox-inline"><input type="checkbox" formControlName = "ExpeditedShippingType" value="Expedited"> Expedited shipping</label>
+				</div>
+				
+			</div>
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="handlingTime">Handling Time:  </label>
+				<div class="col-sm-8">
+            <input type = "number" class="form-control" formControlName = "handlingTime" id = "handlingTime" min="1" max="30" placeholder="Max handling time(days)"> 
+			<div style="color: crimson;" *ngIf="form.controls['handlingTime'].hasError('max')">Handling time cannot exceed 30 days</div>
+			<div style="color: crimson;" *ngIf="form.controls['handlingTime'].hasError('min')">Handling time must be greater than 1</div>
+        </div>
+      </div>
+      
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="sort">Sort by:</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="sort" formControlName = "SortSelection">
+						<option value = "BestMatch">Best Match</option>
+						<option value = "CurrentPriceHighest">Price: highest first</option>
+						<option value = "CurrentPriceHighest">Price: lowest first</option>
+						<option value = "PricePlusShippingHighest">Price + Shipping: highest first</option>
+						<option value = "PricePlusShippingLowest">Price + Shipping: lowest first</option>
+					</select>
+				</div>
+			</div>	
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="results">Results Per Page::</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="results" formControlName = "ResultsNum">
+						<option value = 5 >5</option>
+						<option value = 10>10</option>
+						<option value = 15>15</option>
+						<option value = 20>20</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-10"	align="right">			
+        <input type="reset" class="btn btn-default" value="Clear" >
+        <button class="btn btn-primary" [disabled]="!form.valid" value="Search">Submit</button>
+			</div>
+	</form>
+
+	
+</div>
+
+<div *ngIf="items && items.length==0"><h2>Sorry we didn't find any matches</h2></div>
+
+     <div style="margin-top: 3%;" *ngIf="items && items.length>0">
+      <div class="card-header" id="headingOne">
+        <button class="btn btn-primary" (click)="clearSearch()" value="Back">Back</button>
+      </div>
+		<div class="card" *ngFor="let item of items | paginate: { itemsPerPage: resNum, currentPage: p }">
+		  <div class="card-header" id="headingOne">
+     	<div class="media">
+		  <img class="mr-3" [src]="item.image" alt="placeholder image" style="width:196px;height:196px" >
+	  	<div class="media-body">
+		  <a [href] ="item.viewItemURL" target="_blank"> <h4 class="mt-0">{{item.title}}</h4></a>
+      <b>{{item.webSource}}</b><br>
+	   	<b>{{item.price | currency:item.currency}}</b>
+      </div>
+      
+       </div>
+       
+      </div>
+      </div>
+      <div class="card text-center m-3">
+      <div class="card-footer pb-0 pt-3">
+        <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+        </div>
+      </div>
+   </div>  
+  
+
+					<!-- <div id="accordion">
+ 
+    
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          Collapsible Group Item #1
+        </button>
+      </h5>
+ 
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Collapsible Group Item #2
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div> -->
+ 
+
+				

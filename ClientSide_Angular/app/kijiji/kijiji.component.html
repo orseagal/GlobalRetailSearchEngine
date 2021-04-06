@@ -1,0 +1,114 @@
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 		
+		<!-- Latest compiled and minified CSS -->
+		<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="http://getbootstrap.com/dist/css/bootstrap.css"></script> -->
+
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
+		<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+		<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script> -->
+
+		
+		
+		
+
+<style>
+.center_div{
+    margin: 0 auto;
+    width:80%;
+}
+</style>
+
+
+ <div class="d-flex justify-content-center" *ngIf="isLoading" >
+ <mat-spinner></mat-spinner>
+ </div> 
+<div class = "container center_div" *ngIf="!isLoading && items==null" >
+  
+	<form class = "form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()" >	
+			<div class = "form-group row">
+				<label class="control-label col-sm-2" for="keyword">Key words:*</label>
+				<div class="col-sm-8">
+					<input type = "text" class="form-control" id = "keyword" formControlName = "keyword" placeholder="Enter keyword">
+				</div>
+
+      </div>	
+      
+      <div class="form-group row">
+				<label class="control-label col-sm-2" for="sort">Location: </label>
+				<div class="col-sm-8">
+          <select class="form-control" formControlName="location" >
+            <option [ngValue]="null" disabled>Select Location</option>
+            <option *ngFor="let location of locations" [ngValue]="location.value">
+              {{ location.name }}
+            </option>
+          </select>
+				</div>
+			</div>	
+
+			<div class = "form-group row">
+					<label class="control-label col-sm-2" for="priceLow">Price range:  </label>
+					<div class="col-sm-4">
+            <input type = "number" class="form-control" formControlName = "priceLow" id = "priceLow" min="0" placeholder="from($)">
+            <div style="color: crimson;" *ngIf="form.getError('priceValidator') && form.controls['priceHigh'].dirty">Lower price is greater then high price</div>
+          </div>
+          
+					<label class="control-label " for="priceHigh">  </label>
+					<div class="col-sm-4">
+            <input type = "number" class="form-control" formControlName = "priceHigh" id = "priceHigh" min="0" placeholder="to($)"> 
+            
+          </div>
+
+          </div>
+       	
+			<div class="form-group row">
+				<label class="control-label col-sm-2" for="results">Results Per Page::</label>
+				<div class="col-sm-8">
+					<select class="form-control" id="results" formControlName = "resultsNum">
+						<option value = 5 >5</option>
+						<option value = 10>10</option>
+						<option value = 15>15</option>
+						<option value = 20>20</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group col-sm-10"	align="right">			
+        <input type="reset" class="btn btn-default" value="Clear" >
+        <button class="btn btn-primary" [disabled]="!form.valid" value="Search">Submit</button>
+			</div>
+	</form>
+
+	
+</div>
+
+
+     <div style="margin-top: 3%;" *ngIf="items">
+      <div class="card-header" id="headingOne">
+        <button class="btn btn-primary" (click)="clearSearch()" value="Back">Back</button>
+      </div>
+		<div class="card" *ngFor="let item of items | paginate: { itemsPerPage: resNum, currentPage: p }">
+		  <div class="card-header" id="headingOne">
+     	<div class="media">
+		  <img class="mr-3" [src]="item.image" alt="placeholder image" style="width:196px;height:196px" >
+	  	<div class="media-body">
+		  <a [href] ="item.viewItemURL" target="_blank"> <h4 class="mt-0">{{item.title}}</h4></a>
+
+	   	<b>{{item.price | currency:item.currency}}</b>
+      </div>
+      
+       </div>
+       
+      </div>
+      </div>
+      <div class="card text-center m-3">
+      <div class="card-footer pb-0 pt-3">
+        <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+        </div>
+      </div>
+   </div>  

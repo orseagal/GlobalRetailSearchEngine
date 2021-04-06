@@ -1,0 +1,28 @@
+table{
+
+    margin:40px auto ;
+}
+table
+{
+  width:75%;
+}
+td
+{
+  height:20px;
+}
+table,th,td
+{
+  border:4px ridge gray;
+}
+
+td
+{
+  padding: 10px;
+  text-align: center;
+}
+th
+{
+  padding: 5px;
+  text-align: center;
+}
+

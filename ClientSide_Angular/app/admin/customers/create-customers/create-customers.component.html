@@ -1,0 +1,95 @@
+<div class="container p-3" style="padding: 3rem!important;">
+    <div class="offset-3 col-6">
+      <div class="card">
+        <div class="card-header  font-weight-bold">
+          Sign Up Customer
+        </div>
+        <div class="card card-body">
+            <div class="alert alert-danger" *ngIf="error">
+                <p>{{ error }}</p>
+               </div>
+              <div *ngIf="isLoading" style="text-align: center;">
+               <app-loading-spinner></app-loading-spinner>
+              </div>
+          <form [formGroup]="frmSignup" (submit)="submit()">
+
+            <div class="form-group">
+              <label for="email" style="color:black!important">Email Address</label>
+              <input id="email" formControlName="email" type="email" class="form-control" >
+               <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('required')&& frmSignup.controls['password'].dirty">
+                Email is Required!
+              </label>
+              <label class="text-danger" *ngIf="frmSignup.controls['email'].hasError('email')">
+                Enter a valid email address!
+              </label>
+            </div>
+
+            <div class="form-group">
+                    <label for="name" style="color:black!important">Name</label>
+                    <input id="name" formControlName="name" type="text" class="form-control" maxlength="15">
+                     <label class="text-danger" *ngIf="frmSignup.controls['name'].hasError('required') && frmSignup.controls['name'].dirty">
+                      Name is Required!
+                    </label>
+                    <label class="text-danger" *ngIf="frmSignup.controls['name'].hasError('minlength') && frmSignup.controls['name'].dirty">
+                            Name must be at least 6 characters long!
+                  </label>
+                  </div>
+
+
+            <div class="form-group">
+              <label for="password" [ngClass]="frmSignup.controls['password'].invalid ? 'text-danger' : ''" style="color:black!important">Password:</label>
+              <input id="password" formControlName="password" type="password" class="form-control">
+              <label class="text-danger col" *ngIf="frmSignup.controls['password'].hasError('required') && frmSignup.controls['password'].dirty">
+                Password is Required!
+              </label>
+             
+              <label class="col" *ngIf="frmSignup.controls['password'].dirty" [ngClass]="frmSignup.controls['password'].hasError('required')  || frmSignup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success' ">
+                <i class="material-icons">{{ frmSignup.controls['password'].hasError('required') ||
+                  frmSignup.controls['password'].hasError('minlength') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must be at least 8 characters!
+              </label>
+          
+              <label class="col" *ngIf="frmSignup.controls['password'].dirty" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ frmSignup.controls['password'].hasError('required') ||
+                  frmSignup.controls['password'].hasError('hasNumber') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 number!
+              </label>
+              <label class="col" *ngIf="frmSignup.controls['password'].dirty" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ frmSignup.controls['password'].hasError('required') ||
+                  frmSignup.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 in Capital Case!
+              </label>
+              <label class="col" *ngIf="frmSignup.controls['password'].dirty" [ngClass]="frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+                <i class="material-icons">{{ frmSignup.controls['password'].hasError('required') ||
+                  frmSignup.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+                  'check_circle' }}</i>
+                Must contain at least 1 Letter in Small Case!
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword" style="color:black!important">Confirm
+                Password:</label>
+              <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control">
+                <!-- [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''"> -->
+              <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('required') && frmSignup.controls['password'].dirty">
+                Password is Required!
+              </label>
+              <label class="text-danger" *ngIf="frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
+                Password do not match
+              </label>
+            </div>
+
+            <div class="form-group">
+              <button [disabled]="frmSignup.invalid" type="submit" class="btn btn-primary btn-block font-weight-bold">Sign
+                up</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,119 @@
+<div class="login-section" style="padding: 3rem!important; height:80vh;">
+                <div class="offset-3 col-6">
+                  <div class="card">
+                    <div class="card-header  font-weight-bold">
+                      Login
+                    </div>
+                    <div class="card card-body">
+                        <div class="alert alert-danger" *ngIf="error">
+                            <p>{{ error }}</p>
+                           </div>
+                          <div *ngIf="isLoading" style="text-align: center;">
+                           <app-loading-spinner></app-loading-spinner>
+                          </div>
+                          <form [formGroup]="loginForm" (ngSubmit)="login()">
+                            <div class="form-group">
+                            
+                            
+                            <label for="username">Email or Username</label>
+                            <input type="text"
+                            id="username"
+                            [formControlName]="'username'" 
+                            name="user_name"
+                            class="form-control"
+                            placeholder="Enter your email or username"
+                            
+                            required
+                            autofocus
+                            >
+                            <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+                              Please provide a valid username
+                           </span> 
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password"
+                            id="password"
+                            [formControlName]="'password'"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                      
+                            required
+                            autofocus
+                            minlength="6">
+                            <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">
+                              Password cannot be empty
+                            </span> 
+                            </div>
+                            
+                            <!-- <mat-checkbox [(ngModel)]="isRememberMe" name="rememberMe">Remember Me</mat-checkbox> -->
+                            
+                            <div>
+                            <button style="margin-right: 2px;" class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Login</button> or 
+                            <button style="margin-right: 2px;" class="btn btn-primary" (click)="onSignup()">Sign up</button>
+                            </div>
+                            <!-- <div class="login-failed" *ngIf='this.isError'>
+                              <p class="login-failed-text">Login Failed. Please check your credentials and try again.</p>   
+                         </div>
+                         <div class="login-failed" [ngStyle]="{'background-color': 'green'}" *ngIf="this.registerSuccessMessage.length > 0">
+                             <p class="register-success-text">{{registerSuccessMessage}}</p>   
+                        </div>  -->
+                            </form>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+<!-- <h3 style="text-align: center; padding-top: 35px;">Login</h3>
+<div class="container" style=" padding-top: 15px;height: 100%; display: flex; align-items: center; justify-content: center;">
+<div class="col-xs-12 col-md-6 col-md-offset-3"> 
+        <div class="alert alert-danger" *ngIf="error">
+                <p>{{ error }}</p>
+        </div>
+<form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+<div class="form-group">
+
+
+<label for="email">Email or Username</label>
+<input type="text"
+id="email"
+name="email"
+class="form-control"
+placeholder="Enter your email or username"
+ngModel
+required
+>
+</div>
+
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password"
+id="password"
+name="password"
+class="form-control"
+placeholder="Enter your password"
+ngModel
+required
+minlength="6">
+</div>
+
+<mat-checkbox [(ngModel)]="isRememberMe" name="rememberMe">Remember Me</mat-checkbox>
+
+<div>
+<button style="margin-right: 2px;" class="btn btn-primary" type="submit" [disabled]="!authForm.valid">Login</button>
+</div>
+</form>
+ </div>
+</div> -->
