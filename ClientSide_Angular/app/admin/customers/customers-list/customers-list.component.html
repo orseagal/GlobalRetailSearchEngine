@@ -1,0 +1,32 @@
+<div class="alert alert-danger" *ngIf="error">
+  <p>{{ error }}</p>
+ </div>
+ <div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+ </div>
+ <div class="alert alert-danger" *ngIf="(customers==null || customers!=null && customers.length==0) && !isLoading">
+  <p>No customers</p>
+ </div>
+<div *ngIf="customers!=null && customers.length>0">
+        <form class="form-inline" style=" padding-top: 15px;height: 100%; display: flex; align-items: center; justify-content: center; align-content: center;">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for Customer" aria-label="Search" style="width: fit-content;"> 
+            <button class="btn btn-light my-sm-0" type="submit">Search</button>
+          </form>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customer of customers">
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.username }}</td>
+            <td>{{ customer.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+              </div>
+            

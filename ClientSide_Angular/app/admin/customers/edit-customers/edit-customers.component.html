@@ -1,0 +1,37 @@
+<div class="alert alert-danger" *ngIf="customers==null || customers.length==0">
+  <p>No customers</p>
+ </div>
+<div *ngIf="customers.length>0">
+        <form class="form-inline" style=" padding-top: 15px;height: 100%; display: flex; align-items: center; justify-content: center; align-content: center;">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for Customer" aria-label="Search" style="width: fit-content;"> 
+            <button class="btn btn-light my-sm-0" type="submit">Search</button>
+          </form>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customer of customers">
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.username }}</td>
+            <td>{{ customer.email }}</td>
+            <td><button type="button" class="btn btn-primary" (click)="openModal(template)">Delete</button>
+              <ng-template #template>
+                <div class="modal-body text-center">
+                  <p>Do you want to confirm?</p>
+                  <button type="button" class="btn btn-default" (click)="confirm(customer)" >Yes</button>
+                  <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+                </div>
+              </ng-template></td>
+              </tr>
+            </tbody>
+          </table>
+              </div>
+            
+
+              

@@ -1,0 +1,58 @@
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>Admin</h2>
+        
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a>Profile</a></li>
+          
+              <mat-expansion-panel>
+                <mat-expansion-panel-header style="text-align: center;">Customers</mat-expansion-panel-header>
+                    <ul class="list-unstyled">
+                        <li><a [routerLink]="['customers-list']">All Customers</a></li>
+                      <li><a [routerLink]="['create-customers']">Create new customer</a></li>
+                          <li><a [routerLink]="['edit-customers']">Edit customer</a></li>
+                      
+                      <!-- <li><a [routerLink]="['manage-companies']">Companies</a></li> -->
+                    </ul>
+              
+              </mat-expansion-panel>
+  
+              <mat-expansion-panel>
+                  <mat-expansion-panel-header style="text-align: center;">Companies</mat-expansion-panel-header>
+               
+                      <ul class="list-unstyled">
+                          <li><a [routerLink]="['companies-list']">All Companies</a></li>
+                        <li><a [routerLink]="['create-companies']">Create new company</a></li>
+                            <li><a [routerLink]="['edit-companies']">Edit company</a></li>
+                        
+                        <!-- <li><a [routerLink]="['manage-companies']">Companies</a></li> -->
+                      </ul>
+                  
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header style="text-align: center;">Finance</mat-expansion-panel-header>
+                 
+                        <ul class="list-unstyled">
+                            <li><a [routerLink]="['incomeByCompany']">By Company</a></li>
+                          <li><a [routerLink]="['incomeByCustomer']">By Customer</a></li>
+                              <li><a [routerLink]="['all-income']">All Incomes</a></li>
+                          
+                          <!-- <li><a [routerLink]="['manage-companies']">Companies</a></li> -->
+                        </ul>
+                    
+                  </mat-expansion-panel>
+            <!-- <li><a href="#">Balance</a></li> -->
+            <!-- <li><a href="#">Contact</a></li>
+            <li><a href="#">Map</a></li> -->
+        </ul> 
+    </div>
+    <div class="main_content">
+        <div class="header">Welcome Admin!! Have a nice day.</div>  
+        <div class="info">
+      
+            <router-outlet></router-outlet>
+      </div>
+    </div>
+</div>

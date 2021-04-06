@@ -1,0 +1,9 @@
+.contact-bg {background: #fff; box-shadow: 0 0 29px #efeded; padding: 40px; }
+.contact-bg h4 { margin-bottom: 15px;}
+form label { margin-top: 15px;     margin-bottom: 0px;} 
+.form-control { border-radius: 0px;}
+.btn-primary { border-radius: 0px; font-weight: 500;}
+.quick-contact-widget span { display: block; margin-bottom: 10px; font-size: 15px; line-height: 2; display: table; clear: both; }
+.quick-contact-widget span i { font-size: 14px; padding-right: 10px; color: #222; border: 1px solid #ddd;   display: inline-block; text-align: center; padding: 12px; height: 40px; width: 40px; margin-right: 10px; border-radius: 100%; }
+.white-bg { background: #fff; }
+/* float: left; */
